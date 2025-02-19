@@ -28,12 +28,13 @@ public class SaleController {
 	}
 
 	@GetMapping(value = "/report")
-	public ResponseEntity<SaleMinDTO> getReport(
+	public ResponseEntity<List<SaleMinDTO>> getReport(
 			@RequestParam(defaultValue = "") String minDate, 
 			@RequestParam(defaultValue = "") String maxDate, 
 			@RequestParam(defaultValue = "") String name) {
-		// TODO
-		return null;
+		List<SaleMinDTO> dto = service.getReport(minDate, maxDate, name);
+		
+		return ResponseEntity.ok(dto);
 	}
 
 	@GetMapping(value = "/summary")
