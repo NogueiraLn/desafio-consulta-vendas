@@ -3,6 +3,7 @@ package com.devsuperior.dsmeta.repositories;
 import java.time.LocalDate;
 import java.util.List;
 
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -35,14 +36,14 @@ public interface SaleRepository extends JpaRepository<Sale, Long> {
 //			+ "WHERE sales.date > :minDate "
 //			+ "AND sales.date < :maxDate "
 //			+ "AND UPPER(seller.name) LIKE UPPER(CONCAT('%', :name, '%')) ")
-//	List<ReportMinProjection> searchSaleReport(LocalDate minDate, LocalDate maxDate, String name);
+//	List<ReportMinProjection> searchSaleReport(LocalDate minDate, LocalDate maxDate, String name, Pageable pageable);
 	
 	@Query("SELECT new com.devsuperior.dsmeta.dto.SaleMinDTO(obj.id, obj.date, obj.amount, obj.seller.name) "
 			+ "FROM Sale as obj "
 			+ "WHERE obj.date > :minDate "
 			+ "AND obj.date < :maxDate "
 			+ "AND UPPER(obj.seller.name) LIKE UPPER(CONCAT('%', :name, '%')) ")
-	List<SaleMinDTO> searchSaleReport(LocalDate minDate, LocalDate maxDate, String name);
+	List<SaleMinDTO> searchSaleReport(LocalDate minDate, LocalDate maxDate, String name, Pageable pageable);
 	
 	
 }
